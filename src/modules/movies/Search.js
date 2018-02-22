@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import {
 	View,
 	ListView,
@@ -13,7 +13,7 @@ import * as moviesActions from './movies.actions';
 import CardThree from './components/CardThree';
 import styles from './styles/Search';
 import { iconsMap } from '../../utils/AppIcons';
-
+import PropTypes from 'prop-types';
 class Search extends Component {
 	constructor(props) {
 		super(props);
@@ -40,14 +40,14 @@ class Search extends Component {
 		setTimeout(() => {
 			if (query.length) {
 				this.props.actions.retrieveMoviesSearchResults(this.state.query, 1)
-				.then(() => {
-					const ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
-					const dataSource = ds.cloneWithRows(this.props.searchResults.results);
-					this.setState({
-						dataSource,
-						isLoading: false
+					.then(() => {
+						const ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
+						const dataSource = ds.cloneWithRows(this.props.searchResults.results);
+						this.setState({
+							dataSource,
+							isLoading: false
+						});
 					});
-				});
 			}
 		}, 500);
 	}
@@ -143,7 +143,7 @@ class Search extends Component {
 						/>
 					</View>
 				</View>
-				{ !this.state.isLoading && this._renderListView() }
+				{!this.state.isLoading && this._renderListView()}
 			</View>
 
 		);

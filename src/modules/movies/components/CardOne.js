@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { } from 'react';
 import {
 	Image,
 	Text,
@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
-
+import PropTypes from 'prop-types';
 import styles from './styles/CardOne';
 import { TMDB_IMG_URL } from '../../../constants/api';
 

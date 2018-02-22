@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, { } from 'react';
 import {
 	TouchableNativeFeedback
 } from 'react-native';
-
+import PropTypes from 'prop-types';
 
 const Button = props => (
 	<TouchableNativeFeedback

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { } from 'react';
 import {
 	Text,
 	View
@@ -8,7 +8,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 
 import styles from './styles/Info';
-
+import PropTypes from 'prop-types';
 const Info = ({ info }) => {
 	const director = _.filter(info.casts.crew, { department: 'Directing', job: 'Director' });
 	const releaseDate = moment(info.release_date).format('LL');

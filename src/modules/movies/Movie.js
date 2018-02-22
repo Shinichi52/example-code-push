@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import {
 	Image,
 	Linking,
@@ -15,7 +15,7 @@ import Swiper from 'react-native-swiper';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import * as moviesActions from './movies.actions';
 import Casts from './tabs/Casts';
 import DefaultTabBar from '../_global/scrollableTabView/DefaultTabBar';
@@ -111,13 +111,13 @@ class Movie extends Component {
 	_retrieveYoutubeDetails() {
 		this.props.details.videos.results.map(item => {
 			const request = axios.get(`${YOUTUBE_URL}/?id=${item.key}&key=${YOUTUBE_API_KEY}&part=snippet`)
-								.then(res => {
-									const data = this.state.youtubeVideos;
-									data.push(res.data.items[0]);
-								})
-								.catch(error => {
-									console.log(error); //eslint-disable-line
-								});
+				.then(res => {
+					const data = this.state.youtubeVideos;
+					data.push(res.data.items[0]);
+				})
+				.catch(error => {
+					console.log(error); //eslint-disable-line
+				});
 			return request;
 		});
 	}
@@ -161,7 +161,7 @@ class Movie extends Component {
 
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
-			<ScrollView
+				<ScrollView
 					style={styles.container}
 					onScroll={this._onScroll.bind(this)}
 					scrollEventThrottle={100}
@@ -177,62 +177,62 @@ class Movie extends Component {
 							progressBackgroundColor="white"
 						/>
 					}>
-				<View style={{ height }}>
-					<Swiper
-						style={styles.swiper}
-						autoplay
-						autoplayTimeout={4}
-						showsPagination={false}
-						height={248}
-						loop
-						index={5}>
-						{
-							info.images.backdrops.map((item, index) => (
-								<View key={index}>
-									<Image source={{ uri: `${TMDB_IMG_URL}/w780/${(item.file_path)}` }} style={styles.imageBackdrop} />
-									<LinearGradient colors={['rgba(0, 0, 0, 0.2)', 'rgba(0,0,0, 0.2)', 'rgba(0,0,0, 0.7)']} style={styles.linearGradient} />
+					<View style={{ height }}>
+						<Swiper
+							style={styles.swiper}
+							autoplay
+							autoplayTimeout={4}
+							showsPagination={false}
+							height={248}
+							loop
+							index={5}>
+							{
+								info.images.backdrops.map((item, index) => (
+									<View key={index}>
+										<Image source={{ uri: `${TMDB_IMG_URL}/w780/${(item.file_path)}` }} style={styles.imageBackdrop} />
+										<LinearGradient colors={['rgba(0, 0, 0, 0.2)', 'rgba(0,0,0, 0.2)', 'rgba(0,0,0, 0.7)']} style={styles.linearGradient} />
+									</View>
+								))
+							}
+						</Swiper>
+						<View style={styles.cardContainer}>
+							<Image source={{ uri: `${TMDB_IMG_URL}/w185/${info.poster_path}` }} style={styles.cardImage} />
+							<View style={styles.cardDetails}>
+								<Text style={styles.cardTitle}>{info.original_title}</Text>
+								<Text style={styles.cardTagline}>{info.tagline}</Text>
+								<View style={styles.cardGenre}>
+									{
+										info.genres.map(item => (
+											<Text key={item.id} style={styles.cardGenreItem}>{item.name}</Text>
+										))
+									}
 								</View>
-							))
-						}
-					</Swiper>
-					<View style={styles.cardContainer}>
-						<Image source={{ uri: `${TMDB_IMG_URL}/w185/${info.poster_path}` }} style={styles.cardImage} />
-						<View style={styles.cardDetails}>
-							<Text style={styles.cardTitle}>{info.original_title}</Text>
-							<Text style={styles.cardTagline}>{info.tagline}</Text>
-							<View style={styles.cardGenre}>
-								{
-									info.genres.map(item => (
-										<Text key={item.id} style={styles.cardGenreItem}>{item.name}</Text>
-									))
-								}
-							</View>
-							<View style={styles.cardNumbers}>
-								<View style={styles.cardStar}>
-									{iconStar}
-									<Text style={styles.cardStarRatings}>8.9</Text>
+								<View style={styles.cardNumbers}>
+									<View style={styles.cardStar}>
+										{iconStar}
+										<Text style={styles.cardStarRatings}>8.9</Text>
+									</View>
+									<Text style={styles.cardRunningHours} />
 								</View>
-								<Text style={styles.cardRunningHours} />
 							</View>
 						</View>
+						<View style={styles.contentContainer}>
+							<ScrollableTabView
+								onChangeTab={this._onChangeTab}
+								renderTabBar={() => (
+									<DefaultTabBar
+										textStyle={styles.textStyle}
+										underlineStyle={styles.underlineStyle}
+										style={styles.tabBar}
+									/>
+								)}>
+								<Info tabLabel="INFO" info={info} />
+								<Casts tabLabel="CASTS" info={info} getTabHeight={this._getTabHeight} />
+								<Trailers tabLabel="TRAILERS" youtubeVideos={this.state.youtubeVideos} openYoutube={this._openYoutube} getTabHeight={this._getTabHeight} />
+							</ScrollableTabView>
+						</View>
 					</View>
-					<View style={styles.contentContainer}>
-						<ScrollableTabView
-							onChangeTab={this._onChangeTab}
-							renderTabBar={() => (
-								<DefaultTabBar
-									textStyle={styles.textStyle}
-									underlineStyle={styles.underlineStyle}
-									style={styles.tabBar}
-								/>
-							)}>
-							<Info tabLabel="INFO" info={info} />
-							<Casts tabLabel="CASTS" info={info} getTabHeight={this._getTabHeight} />
-							<Trailers tabLabel="TRAILERS" youtubeVideos={this.state.youtubeVideos} openYoutube={this._openYoutube} getTabHeight={this._getTabHeight} />
-						</ScrollableTabView>
-					</View>
-				</View>
-			</ScrollView>
+				</ScrollView>
 		);
 	}
 }

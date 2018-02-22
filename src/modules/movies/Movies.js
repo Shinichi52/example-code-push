@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import {
 	RefreshControl,
 	ScrollView,
@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import * as moviesActions from './movies.actions';
 import CardOne from './components/CardOne';
 import CardTwo from './components/CardTwo';
@@ -127,76 +127,76 @@ class Movies extends Component {
 
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
-			<ScrollView
-				style={styles.container}
-				refreshControl={
-					<RefreshControl
-						refreshing={this.state.isRefreshing}
-						onRefresh={this._onRefresh}
-						colors={['#EA0000']}
-						tintColor="white"
-						title="loading..."
-						titleColor="white"
-						progressBackgroundColor="white"
-					/>
-				}>
-				<Swiper
-					autoplay
-					autoplayTimeout={4}
-					showsPagination={false}
-					height={248}>
-					{nowPlayingMovies.results.map(info => (
-						<CardOne key={info.id} info={info} viewMovie={this._viewMovie} />
-					))}
-				</Swiper>
-				<View>
-					<View style={styles.listHeading}>
-						<Text style={styles.listHeadingLeft}>Popular</Text>
-						<TouchableOpacity>
-							<Text
-								style={styles.listHeadingRight}
-								onPress={this._viewMoviesList.bind(this, 'popular', 'Popular')}>
-								See all
-							</Text>
-						</TouchableOpacity>
-					</View>
-					<ScrollView horizontal showsHorizontalScrollIndicator={false}>
-						{popularMovies.results.map(info => (
-							<CardTwo key={info.id} info={info} viewMovie={this._viewMovie} />
+				<ScrollView
+					style={styles.container}
+					refreshControl={
+						<RefreshControl
+							refreshing={this.state.isRefreshing}
+							onRefresh={this._onRefresh}
+							colors={['#EA0000']}
+							tintColor="white"
+							title="loading..."
+							titleColor="white"
+							progressBackgroundColor="white"
+						/>
+					}>
+					<Swiper
+						autoplay
+						autoplayTimeout={4}
+						showsPagination={false}
+						height={248}>
+						{nowPlayingMovies.results.map(info => (
+							<CardOne key={info.id} info={info} viewMovie={this._viewMovie} />
 						))}
-					</ScrollView>
-					<View style={styles.browseList}>
-						<TouchableOpacity activeOpacity={0.7}>
-							<View style={styles.browseListItem}>
-								{iconPlay}
+					</Swiper>
+					<View>
+						<View style={styles.listHeading}>
+							<Text style={styles.listHeadingLeft}>Popular</Text>
+							<TouchableOpacity>
 								<Text
-									style={styles.browseListItemText}
-									onPress={this._viewMoviesList.bind(this, 'now_playing', 'Now Playing')}>
-									Now Playing
+									style={styles.listHeadingRight}
+									onPress={this._viewMoviesList.bind(this, 'popular', 'Popular')}>
+									See all
+							</Text>
+							</TouchableOpacity>
+						</View>
+						<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+							{popularMovies.results.map(info => (
+								<CardTwo key={info.id} info={info} viewMovie={this._viewMovie} />
+							))}
+						</ScrollView>
+						<View style={styles.browseList}>
+							<TouchableOpacity activeOpacity={0.7}>
+								<View style={styles.browseListItem}>
+									{iconPlay}
+									<Text
+										style={styles.browseListItemText}
+										onPress={this._viewMoviesList.bind(this, 'now_playing', 'Now Playing')}>
+										Now Playing
 								</Text>
-							</View>
-						</TouchableOpacity>
-						<TouchableOpacity activeOpacity={0.7}>
-							<View style={styles.browseListItem}>
-								{iconTop}
-								<Text style={styles.browseListItemText} onPress={this._viewMoviesList.bind(this, 'top_rated', 'Top Rated')}>
-									Top Rated
+								</View>
+							</TouchableOpacity>
+							<TouchableOpacity activeOpacity={0.7}>
+								<View style={styles.browseListItem}>
+									{iconTop}
+									<Text style={styles.browseListItemText} onPress={this._viewMoviesList.bind(this, 'top_rated', 'Top Rated')}>
+										Top Rated
 								</Text>
-							</View>
-						</TouchableOpacity>
-						<TouchableOpacity activeOpacity={0.7}>
-							<View style={styles.browseListItem}>
-								{iconUp}
-								<Text
-									style={styles.browseListItemText}
-									onPress={this._viewMoviesList.bind(this, 'upcoming', 'Upcoming')}>
-									Upcoming
+								</View>
+							</TouchableOpacity>
+							<TouchableOpacity activeOpacity={0.7}>
+								<View style={styles.browseListItem}>
+									{iconUp}
+									<Text
+										style={styles.browseListItemText}
+										onPress={this._viewMoviesList.bind(this, 'upcoming', 'Upcoming')}>
+										Upcoming
 								</Text>
-							</View>
-						</TouchableOpacity>
+								</View>
+							</TouchableOpacity>
+						</View>
 					</View>
-				</View>
-			</ScrollView>
+				</ScrollView>
 		);
 	}
 }

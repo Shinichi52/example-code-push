@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { } from 'react';
 import {
 	Image,
 	Text,
@@ -8,7 +8,7 @@ import {
 
 import styles from './styles/CardTwo';
 import { TMDB_IMG_URL } from '../../../constants/api';
-
+import PropTypes from 'prop-types';
 const CardTwo = ({ info, viewMovie }) => (
 	<TouchableOpacity activeOpacity={0.8} onPress={viewMovie.bind(this, info.id)}>
 		<View style={styles.cardContainer}>

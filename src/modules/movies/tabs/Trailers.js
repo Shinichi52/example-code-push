@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { } from 'react';
 import {
 	Text,
 	View,
@@ -6,7 +6,7 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 import styles from './styles/Trailers';
 
 const Trailers = ({ getTabHeight, youtubeVideos, openYoutube }) => {

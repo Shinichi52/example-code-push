@@ -1,5 +1,5 @@
 /* eslint-disable new-cap */
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import {
 	Image,
 	Text,
@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 
 import { TMDB_IMG_URL } from '../../../constants/api';
 import styles from './styles/CardThree';
-
+import PropTypes from 'prop-types';
 const iconStar = <Icon name="md-star" size={16} color="#F5B642" />;
 
 class CardThree extends Component {

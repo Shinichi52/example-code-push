@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import {
 	Platform,
 	View,
@@ -8,7 +8,7 @@ import {
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import { TMDB_URL, TMDB_API_KEY } from '../../constants/api';
 import * as moviesActions from './movies.actions';
 import CardThree from './components/CardThree';
@@ -116,27 +116,27 @@ class MoviesList extends Component {
 	render() {
 		return (
 			this.state.isLoading ? <View style={styles.progressBar}><ProgressBar /></View> :
-			<ListView
-				style={styles.container}
-				enableEmptySections
-				onEndReached={type => this._retrieveNextPage(this.props.type)}
-				onEndReachedThreshold={1200}
-				dataSource={this.state.dataSource}
-				renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
-				renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.seperator} />}
-				renderFooter={() => <View style={{ height: 50 }}><ProgressBar /></View>}
-				refreshControl={
-					<RefreshControl
-						refreshing={this.state.isRefreshing}
-						onRefresh={this._onRefresh}
-						colors={['#EA0000']}
-						tintColor="white"
-						title="loading..."
-						titleColor="white"
-						progressBackgroundColor="white"
-					/>
-				}
-			/>
+				<ListView
+					style={styles.container}
+					enableEmptySections
+					onEndReached={type => this._retrieveNextPage(this.props.type)}
+					onEndReachedThreshold={1200}
+					dataSource={this.state.dataSource}
+					renderRow={rowData => <CardThree info={rowData} viewMovie={this._viewMovie} />}
+					renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.seperator} />}
+					renderFooter={() => <View style={{ height: 50 }}><ProgressBar /></View>}
+					refreshControl={
+						<RefreshControl
+							refreshing={this.state.isRefreshing}
+							onRefresh={this._onRefresh}
+							colors={['#EA0000']}
+							tintColor="white"
+							title="loading..."
+							titleColor="white"
+							progressBackgroundColor="white"
+						/>
+					}
+				/>
 		);
 	}
 }
