@@ -1,2 +1,2 @@
-- yarn install
+- npm/yarn install
 - react-native run-ios
