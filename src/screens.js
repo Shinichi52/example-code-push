@@ -6,6 +6,7 @@ import Movies from './modules/movies/Movies';
 import MoviesList from './modules/movies/MoviesList';
 import Movie from './modules/movies/Movie';
 import Search from './modules/movies/Search';
+import CodePush from './component/code_push/code_push';
 import BusyBox from './screens/busybox/busybox';
 
 export function registerScreens(store, Provider) {
